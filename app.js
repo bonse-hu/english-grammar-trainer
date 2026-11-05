@@ -1,7 +1,7 @@
 document.getElementById("generateBtn").addEventListener("click", async () => {
  const grammar=document.getElementById("grammar").value;
  document.getElementById("result").textContent="生成中...";
- const res=await fetch("https://YOUR-WORKER.workers.dev/generate",{
+ const res=await fetch("https://tight-sound-508a.uematsu-piano.workers.dev",{
   method:"POST",
   headers:{"Content-Type":"application/json"},
   body:JSON.stringify({grammar})
