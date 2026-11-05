@@ -1,17 +1,42 @@
 document.getElementById("generateBtn").addEventListener("click", async () => {
- const grammar=document.getElementById("grammar").value;
- document.getElementById("result").textContent="生成中...";
- const res=await fetch("https://tight-sound-508a.uematsu-piano.workers.dev",{
-  method:"POST",
-  headers:{"Content-Type":"application/json"},
-  body:JSON.stringify({grammar})
- });
- const data=await res.json();
- document.getElementById("result").textContent=
- `英文: ${data.english}
+
+  const grammar = document.getElementById("grammar").value;
+  const result = document.getElementById("result");
+
+  try {
+
+    result.textContent = "生成中...";
+
+    const res = await fetch(
+      "https://tight-sound-508a.uematsu-piano.workers.dev",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ grammar })
+      }
+    );
+
+    result.textContent =
+      "HTTP Status: " + res.status;
+
+    const data = await res.json();
+
+    result.textContent =
+`英文: ${data.english}
 
 和訳: ${data.japanese}
 
 解説: ${data.explanation}`;
+
+  } catch (e) {
+
+    result.textContent =
+      "ERROR: " + e.message;
+
+    console.error(e);
+
+  }
+
 });
-if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js');}
