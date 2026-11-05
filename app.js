@@ -1,10 +1,7 @@
 document.getElementById("generateBtn").addEventListener("click", async () => {
 
-  const grammar =
-    document.getElementById("grammar").value;
-
-  const result =
-    document.getElementById("result");
+  const grammar = document.getElementById("grammar").value;
+  const result = document.getElementById("result");
 
   try {
 
@@ -18,10 +15,14 @@ document.getElementById("generateBtn").addEventListener("click", async () => {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          grammar
+          grammar: grammar
         })
       }
     );
+
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
+    }
 
     const data = await res.json();
 
@@ -38,8 +39,16 @@ ${data.explanation}`;
   } catch (e) {
 
     result.textContent =
-      "ERROR: " + e.message;
+`通信エラー
+
+${e.message}`;
+
+    console.error(e);
 
   }
 
 });
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js");
+}
