@@ -1,7 +1,10 @@
 document.getElementById("generateBtn").addEventListener("click", async () => {
 
-  const grammar = document.getElementById("grammar").value;
-  const result = document.getElementById("result");
+  const grammar =
+    document.getElementById("grammar").value;
+
+  const result =
+    document.getElementById("result");
 
   try {
 
@@ -14,28 +17,28 @@ document.getElementById("generateBtn").addEventListener("click", async () => {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ grammar })
+        body: JSON.stringify({
+          grammar
+        })
       }
     );
-
-    result.textContent =
-      "HTTP Status: " + res.status;
 
     const data = await res.json();
 
     result.textContent =
-`英文: ${data.english}
+`英文:
+${data.english}
 
-和訳: ${data.japanese}
+和訳:
+${data.japanese}
 
-解説: ${data.explanation}`;
+解説:
+${data.explanation}`;
 
   } catch (e) {
 
     result.textContent =
       "ERROR: " + e.message;
-
-    console.error(e);
 
   }
 
